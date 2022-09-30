@@ -34,18 +34,16 @@ Star, Follower 기반 실시간 깃허브 랭킹을 확인할 수 있어요!
 
 ## 🌟 프로젝트 주요 기능
 
-> 🔑 Apple 계정을 통해 회원가입, 로그인을 할 수 있어요!
-
-<img src="https://user-images.githubusercontent.com/41044154/144353747-ba7d89bc-9385-4e12-ad01-26b10748d32d.png" width=30%><img src="https://user-images.githubusercontent.com/41044154/144353744-529629b3-ba00-4ac8-bc71-cf24adfcd17e.png" width=30%>
-<img src="https://user-images.githubusercontent.com/41044154/144353735-ed74ea31-55f7-4ee9-9f77-c24d782e42f2.png" width=30%>
+> 기능 설명
+<img src="https://d.png" width=30%>
 
 <br/>
 
 ## ⚒ 아키텍쳐 
 
-### ⏺ MVVM-C & Clean Architecture
+### ⏺ 아키텍쳐
 
-<img width="994" alt="%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-11-20%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%2010 40 56" src="https://user-images.githubusercontent.com/46087477/145963925-dc66129a-b3e3-4fe8-827c-6ae176e8e610.png">
+<img width="994" alt="%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-11-20%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%2010 40 56" src="h">
 
 
 <br/>
