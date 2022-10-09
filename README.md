@@ -1,5 +1,5 @@
 
-# Github-ranking
+# Rankinghub for github
 <img height="250" src="https://w7.pngwing.com/pngs/640/461/png-transparent-apple-logo-company-apple-logo-company-service-computer-thumbnail.png"></img>
 > **_랭킹 확인하고 잔디심자_** <br/>
 
