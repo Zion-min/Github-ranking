@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <% 
 	String serverIP = "localhost";
-	String strSID = "xe";
+	String strSID = "orcl";
 	String portNum = "1521";
 	String user = "rankinghub";
 	String pass = "comp322";
@@ -60,9 +60,16 @@
                                 <li>
                                     <a class="navbar__item" href="#/users">게시판</a>
                                 </li>
+                                <% if(session.getAttribute("sid") == null) {%>
                                 <li>
-                                    <a class="navbar__item" href="#/notice">로그인</a>
+                                    <a class="navbar__item" href="login.jsp">로그인</a>
                                 </li>
+                                <%} else { out.println(session.getAttribute("sid"));%>
+                                <li>
+                                    <a class="navbar__item" href="login.jsp">프로필</a>
+                                    <a class="navbar__item" href="logout.jsp">로그아웃</a>
+                                </li>
+                                <% }%>
                             </ul>
                         </nav>
                     </div>
