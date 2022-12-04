@@ -43,8 +43,7 @@
                     <div class="header__wrap">
                         <div class="header__column">
                             <a class="header__link" href="#/">
-                                <h1 class="header__title"><span>Rankinghub</span>
-                            	</h1>
+                                <h1 class="header__title"><span>Rankinghub</span></h1>
                             </a>
                             <a role="button" class="header__menu-btn">
                             <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="bars" class="svg-inline--fa fa-bars fa-w-14 " role="img" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 448 512">
@@ -66,7 +65,8 @@
                                 </li>
                                 <%} else { out.println(session.getAttribute("sid"));%>
                                 <li>
-                                    <a class="navbar__item" href="login.jsp">프로필</a>
+                                	<a class="navbar__item" href="group/showGroup.jsp">그룹</a>
+                                    <a class="navbar__item" href="profile/showProfile.jsp">프로필</a>
                                     <a class="navbar__item" href="logout.jsp">로그아웃</a>
                                 </li>
                                 <% }%>
