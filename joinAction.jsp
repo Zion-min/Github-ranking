@@ -21,7 +21,7 @@
 		public static Statement stmt = null;	// Statement object
 	    public static String sql = ""; // an SQL statement 
 	    public static ArrayList<Object[]> commits_url_list = new ArrayList<Object[]>();
-	    public static String github_token = "";	// 깃헙 토큰 추가!!!
+	    public static String github_token = "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";	// 깃헙 토큰 추가!!!
     %>
     
     <%!
@@ -210,7 +210,7 @@
 	
 		static void insert_repo_info(String github_id) {
 			commits_url_list.clear();
-			String select_sql = "select max(repository_id) from repository";
+			String select_sql = "select repository_seq.NEXTVAL from dual";
 			int repo_id = 0;
 			try {
 				ResultSet rs = stmt.executeQuery(select_sql);
@@ -237,16 +237,15 @@
 				JSONArray jsonArray = (JSONArray) get_json_array_obj(response);
 				for (int i = 0; i < jsonArray.size(); i++) {
 					JSONObject jsonObject = (JSONObject) jsonArray.get(i);
-					
 					String commits_url = ((String)jsonObject.get("commits_url")).replace("{/sha}","");
 					String issues_url = ((String)jsonObject.get("issues_url")).replace("{/number}","");
 					String pulls_url = ((String)jsonObject.get("pulls_url")).replace("{/number}","");
 					int commit_cnt = get_count_info(commits_url);
 					int issue_cnt = get_count_info(issues_url);
 					int pulls_cnt = get_count_info(pulls_url);
-					commits_url_list.add(new Object[] {commits_url, repo_id + 1});	// commit_url 저장
+					commits_url_list.add(new Object[] {commits_url, repo_id});	// commit_url 저장
 					HashMap<String,Object> repo_info = new HashMap<String,Object>();//HashMap생성
-					repo_info.put("repository_id", repo_id + 1); repo_info.put("repo_name", (String) jsonObject.get("name"));
+					repo_info.put("repository_id", repo_id); repo_info.put("repo_name", (String) jsonObject.get("name"));
 					repo_info.put("repo_url", (String) jsonObject.get("html_url"));
 					repo_info.put("fork_count", (long) jsonObject.get("forks_count"));
 					repo_info.put("stargazers_count", (long) jsonObject.get("stargazers_count"));
@@ -321,18 +320,6 @@
 		}
 	
 		static void insert_commit_info(String github_id) {		
-			String select_sql = "select max(commit_id) from commits";
-			int commit_id = 0;
-			try {
-				ResultSet rs = stmt.executeQuery(select_sql);
-				rs.next();
-				String commit_id_str = rs.getString(1);
-				commit_id = Integer.parseInt(commit_id_str);
-			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-			
 			for (int i = 0; i < commits_url_list.size(); i++) {
 				try {
 					String[] full_name = ((String)commits_url_list.get(i)[0]).split("/");
@@ -360,7 +347,7 @@
 							if (commit_msg.length() >= 480) {
 							commit_msg = commit_msg.substring(0, 480);
 							}
-							repo_info.put("commit_id", commit_id + 1); repo_info.put("commit_msg", commit_msg);
+							repo_info.put("commit_msg", commit_msg);
 							repo_info.put("author", github_id);
 							repo_info.put("commit_date", (String) dateObject.get("date"));
 							repo_info.put("commit_url", (String) jsonObject.get("html_url"));
@@ -368,11 +355,10 @@
 							repo_info.put("repository_id", commits_url_list.get(i)[1]);
 							HashMap<String,Object> res = new HashMap<String,Object>();//HashMap생성
 							res = convert_insert_format(repo_info);
-							String sql = String.format("INSERT INTO commits values(%d, %s, %s, to_timestamp(%s, 'YYYY-MM-DD HH24:MI:SS'), %s, %d, %d)", 
-									res.get("commit_id"), res.get("commit_msg"), res.get("author"), res.get("commit_date"), 
+							String sql = String.format("INSERT INTO commits values(commit_seq.NEXTVAL, %s, %s, to_timestamp(%s, 'YYYY-MM-DD HH24:MI:SS'), %s, %d, %d)", 
+									res.get("commit_msg"), res.get("author"), res.get("commit_date"), 
 									res.get("commit_url"), res.get("codeline_count"), res.get("repository_id"));
 							stmt.addBatch(sql);
-							commit_id++;
 						}
 					}
 					
@@ -461,18 +447,6 @@
 		}
 	
 		static void insert_organization_info(String github_id) {
-			String select_sql = "select max(organization_id) from organization";
-			int org_id = 0;
-			try {
-				ResultSet rs = stmt.executeQuery(select_sql);
-				rs.next();
-				String org_id_str = rs.getString(1);
-				org_id = Integer.parseInt(org_id_str);
-			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-			
 			
 			try {
 				URL url = new URL("https://api.github.com/users/" + github_id + "/orgs");
@@ -493,7 +467,7 @@
 						JSONObject jsonObject = (JSONObject) jsonArray.get(j);
 						HashMap<String,Object> org_info = new HashMap<String,Object>();//HashMap생성
 						HashMap<String,Object> org_detail_info = get_org_info((String) jsonObject.get("url"));
-						org_info.put("organization_id", org_id + 1); 
+						
 						org_info.put("org_name", (String) jsonObject.get("login"));
 						org_info.put("avatar_url", (String) jsonObject.get("avatar_url"));
 						org_info.put("org_url", (String) org_detail_info.get("html_url"));
@@ -504,14 +478,13 @@
 						org_info.put("org_rank_id", null);
 						HashMap<String,Object> res = new HashMap<String,Object>();//HashMap생성
 						res = convert_insert_format(org_info);
-						sql = String.format("INSERT INTO organization values(%d, %s, %s, %s, %d, %d, to_timestamp(%s, 'YYYY-MM-DD HH24:MI:SS'), to_timestamp(%s, 'YYYY-MM-DD HH24:MI:SS'), %d)", 
-								res.get("organization_id"), res.get("org_name"), res.get("avatar_url"), res.get("org_url"), 
+						sql = String.format("INSERT INTO organization values(organization_seq.NEXTVAL, %s, %s, %s, %d, %d, to_timestamp(%s, 'YYYY-MM-DD HH24:MI:SS'), to_timestamp(%s, 'YYYY-MM-DD HH24:MI:SS'), %d)", 
+								res.get("org_name"), res.get("avatar_url"), res.get("org_url"), 
 								res.get("stargazers_count"), res.get("followers_count"), res.get("created_at"), res.get("updated_at"), res.get("org_rank_id"));
 						stmt.addBatch(sql);
-						sql = String.format("INSERT INTO belong values(%s, %d)", 
-								"'" + github_id + "'", res.get("organization_id"));
+						sql = String.format("INSERT INTO belong values(%s, organization_seq.CURRVAL)", 
+								"'" + github_id + "'");
 						stmt.addBatch(sql);
-						org_id++;
 					}
 					conn.commit();
 				}
@@ -551,18 +524,7 @@
 				e.printStackTrace();
 			}
 			String githubID = "'" + github_id + "'";
-			sql = "select max(user_rank_id) from user_ranks";
-			int user_rank_id = 0;
-			try {
-				ResultSet rs = stmt.executeQuery(sql);
-				rs.next();
-				String user_rank_id_str = rs.getString(1);
-				user_rank_id = Integer.parseInt(user_rank_id_str);
-				rs.close();
-			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			
 			try {
 				String location = null, github_url = null, created_at = null, updated_at = null;
 				int followers = 0, stargazers_count = 0, codeline_count = 0, commit_count = 0;
@@ -589,7 +551,7 @@
 				}
 				Double total_score = followers * 0.2 + codeline_count * 0.2 + stargazers_count*0.2 + commit_count*0.2;
 				HashMap<String,Object> user_rank_info = new HashMap<String,Object>();//HashMap생성
-				user_rank_info.put("user_rank_id", user_rank_id + 1);
+				
 				user_rank_info.put("location", location);
 				user_rank_info.put("github_url", github_url);
 				user_rank_info.put("stargazers_count", stargazers_count);
@@ -597,15 +559,15 @@
 				user_rank_info.put("followers_count", followers);
 				user_rank_info.put("commit_count", commit_count);
 				user_rank_info.put("total_score", total_score);
-				user_rank_info.put("rank", user_rank_id + 1);
+				
 				user_rank_info.put("created_at", created_at); 
 				user_rank_info.put("updated_at", updated_at);
 				HashMap<String,Object> res = new HashMap<String,Object>();//HashMap생성
 				res = convert_insert_format(user_rank_info);
-				sql = String.format("INSERT INTO user_ranks values(%d, %s, %s, %s, %d, %d, %d, %d, %.2f, %d, to_timestamp(%s, 'YYYY-MM-DD HH24:MI:SS'), to_timestamp(%s, 'YYYY-MM-DD HH24:MI:SS'))", 
-						res.get("user_rank_id"), githubID, res.get("location"), res.get("github_url"), 
+				sql = String.format("INSERT INTO user_ranks values(user_rank_seq.NEXTVAL, %s, %s, %s, %d, %d, %d, %d, %.2f, user_rank_seq.CURRVAL, to_timestamp(%s, 'YYYY-MM-DD HH24:MI:SS'), to_timestamp(%s, 'YYYY-MM-DD HH24:MI:SS'))", 
+						githubID, res.get("location"), res.get("github_url"), 
 						res.get("stargazers_count"), res.get("codeline_count"), res.get("followers_count"),
-						res.get("commit_count"), res.get("total_score"), res.get("rank"), res.get("created_at"), res.get("updated_at"));
+						res.get("commit_count"), res.get("total_score"),  res.get("created_at"), res.get("updated_at"));
 				rs = stmt.executeQuery(sql);
 				
 				// user_rank 순위 update
@@ -639,19 +601,7 @@
 	
 		static void insert_repo_rank_info(String github_id) {
 			String githubID = "'" + github_id + "'";
-			sql = "select max(repo_rank_id) from repository_ranks";
-			int repo_rank_id = 0;
-			try {
-				ResultSet rs = stmt.executeQuery(sql);
-				rs.next();
-				String repo_rank_id_str = rs.getString(1);
-				repo_rank_id = Integer.parseInt(repo_rank_id_str);
-				rs.close();
-			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-	
+			
 			try {
 				String full_name = null, repo_url = null, created_at = null, updated_at = null;
 				int issue_count = 0, stargazers_count = 0, pr_count = 0, fork_count = 0, commit_count = 0;
@@ -677,7 +627,7 @@
 					Double total_score = stargazers_count * 0.15 + issue_count * 0.15 + pr_count*0.25 + fork_count*0.1 + commit_count*0.35;
 					
 					HashMap<String,Object> repo_rank_info = new HashMap<String,Object>();//HashMap생성
-					repo_rank_info.put("repo_rank_id", repo_rank_id + 1);
+					
 					repo_rank_info.put("full_name", full_name);
 					repo_rank_info.put("repo_url", repo_url);
 					repo_rank_info.put("fork_count", fork_count);
@@ -685,18 +635,18 @@
 					repo_rank_info.put("pr_count", pr_count);
 					repo_rank_info.put("issue_count", issue_count);
 					repo_rank_info.put("commit_count", commit_count);
-					repo_rank_info.put("rank", repo_rank_id + 1);
+					
 					repo_rank_info.put("total_score", total_score);
 					repo_rank_info.put("created_at", created_at); 
 					repo_rank_info.put("updated_at", updated_at);
 					HashMap<String,Object> res = new HashMap<String,Object>();//HashMap생성
 					res = convert_insert_format(repo_rank_info);
-					sql = String.format("INSERT INTO repository_ranks values(%d, %s, %s, %d, %d, %d, %d, %d, %d, %.2f, to_timestamp(%s, 'YYYY-MM-DD HH24:MI:SS'), to_timestamp(%s, 'YYYY-MM-DD HH24:MI:SS'))", 
-							res.get("repo_rank_id"), res.get("full_name"), res.get("repo_url"), 
+					sql = String.format("INSERT INTO repository_ranks values(repo_rank_seq.NEXTVAL, %s, %s, %d, %d, %d, %d, %d, repo_rank_seq.CURRVAL,%.2f, to_timestamp(%s, 'YYYY-MM-DD HH24:MI:SS'), to_timestamp(%s, 'YYYY-MM-DD HH24:MI:SS'))", 
+							res.get("full_name"), res.get("repo_url"), 
 							res.get("stargazers_count"), res.get("issue_count"), res.get("pr_count"),
 							res.get("fork_count"), res.get("commit_count"), res.get("rank"), res.get("total_score"), res.get("created_at"), res.get("updated_at"));
 					stmt.addBatch(sql);
-					repo_rank_id++;
+					
 				}
 				stmt.executeBatch();
 				// repo_rank 순위 update
@@ -728,18 +678,7 @@
 	
 		static void insert_org_rank_info(String github_id) {
 			String githubID = "'" + github_id + "'";
-			sql = "select max(org_rank_id) from organization_ranks";
-			int org_rank_id = 0;
-			try {
-				ResultSet rs = stmt.executeQuery(sql);
-				rs.next();
-				String org_rank_id_str = rs.getString(1);
-				org_rank_id = Integer.parseInt(org_rank_id_str);
-				rs.close();
-			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			
 	
 			try {
 				String org_name = null, created_at = null, updated_at = null;
@@ -761,22 +700,22 @@
 					int total_score = stargazers_count + followers_count;
 					
 					HashMap<String,Object> org_rank_info = new HashMap<String,Object>();//HashMap생성
-					org_rank_info.put("org_rank_id", org_rank_id + 1);
+					
 					org_rank_info.put("org_name", org_name);
 					org_rank_info.put("stargazers_count", stargazers_count);
 					org_rank_info.put("followers_count", followers_count);
 					org_rank_info.put("total_score", total_score);
-					org_rank_info.put("rank", org_rank_id + 1);
+					
 					org_rank_info.put("created_at", created_at); 
 					org_rank_info.put("updated_at", updated_at);
 					HashMap<String,Object> res = new HashMap<String,Object>();//HashMap생성
 					res = convert_insert_format(org_rank_info);
-					sql = String.format("INSERT INTO repository_ranks values(%d, %s, %d, %d, %d, %d, to_timestamp(%s, 'YYYY-MM-DD HH24:MI:SS'), to_timestamp(%s, 'YYYY-MM-DD HH24:MI:SS'))", 
-							res.get("org_rank_id"), res.get("org_name"), res.get("stargazers_count"), 
-							res.get("followers_count"), res.get("total_score"), res.get("rank"),
+					sql = String.format("INSERT INTO repository_ranks values(org_rank_seq.NEXTVAL, %s, %d, %d, %d, org_rank_seq.CURRVAL, to_timestamp(%s, 'YYYY-MM-DD HH24:MI:SS'), to_timestamp(%s, 'YYYY-MM-DD HH24:MI:SS'))", 
+							res.get("org_name"), res.get("stargazers_count"), 
+							res.get("followers_count"), res.get("total_score"), 
 							res.get("created_at"), res.get("updated_at"));
 					stmt.addBatch(sql);
-					org_rank_id++;
+					
 				}
 				stmt.executeBatch();
 				// repo_rank 순위 update
@@ -848,7 +787,7 @@
     %>
     
     <%
-	    String URL = "jdbc:oracle:thin:@localhost:1521:orcl";
+	    String URL = "jdbc:oracle:thin:@localhost:1521:xe";
 		String USER_RANKINGHUB = "rankinghub";
 		String USER_PASSWD = "comp322";
 		
@@ -864,7 +803,7 @@
 		user_info = get_user_info(ID);
 		if (user_info != null) {
 			// 깃헙 내 아이디가 존재하지 않은 경우
-			if (user_info.get("message") != null & user_info.get("message").equals("Not Found")) {
+			if (user_info.get("message") != null && user_info.get("message").equals("Not Found")) {
 				out.println("깃헙 내 존재하지 않은 아이디 입니다...\n");
 				response.sendRedirect("join.jsp");
 			}
