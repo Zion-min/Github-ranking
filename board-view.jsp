@@ -6,7 +6,7 @@
 <% 
 	request.setCharacterEncoding("UTF-8");
 	String serverIP = "localhost";
-	String strSID = "xe";
+	String strSID = "orcl";
 	String portNum = "1521";
 	String user = "rankinghub";
 	String pass = "comp322";
@@ -72,7 +72,7 @@
                                 <% out.println(
                                          "<a class='navbar__item' href='../profile/showProfile.jsp?gitid=" + session.getAttribute("sid") + "'>프로필</a>"
                                          ); %>
-                                    <a class="navbar__item" href="./join/logout.jsp">로그아웃</a>
+                                    <a class="navbar__item" href="logout.jsp">로그아웃</a>
                                 </li>
                                 <% }%>
                             </ul>
@@ -272,53 +272,18 @@
 							        {
 							        	%>alert("이미 좋아요한 게시물입니다.");
 							        <%}%>
-							        
 							    });
 							</script>
-					
-						
 						</div>
 						<div class="post__delete">
-							<input id='target' type="submit" value="삭제">
-							<script>
-							    var t = document.getElementById('target');
-							    t.addEventListener('click', function(event){
-							        if(confirm("게시물을 정말 삭제하시겠습니까?"))
-							        { 	
-							        	<%
-							        		if((String)session.getAttribute("sid")!=null && author.compareTo((String)session.getAttribute("sid"))==0)
-							        		{
-
-												sql = "delete from comments c\n"
-														+"where post_id ="+idx;
-												stmt.addBatch(sql);
-												
-												sql = "delete from files c\n"
-														+"where post_id ="+idx;
-												stmt.addBatch(sql);
-
-												sql = "delete post\n"
-													+"where post_id = "+idx;
-												stmt.addBatch(sql);
-												
-							        			stmt.executeBatch();
-						                      	%>
-						                      	location.href='board-qna.jsp';
-						                      	alert("성공적으로 삭제되었습니다.");
-						                      	<%
-							        		}
-							        		else
-							        		{
-							        			%>alert("작성자가 아닙니다.");<%
-							        		}
-										%>
-									}
-
-							    });
+							<script language='javascript'>
+								function del() {
+								  if (confirm("정말 삭제하시겠습니까?"))
+								    list_ok.submit();
+								}
 							</script>
+							<a href="boardDeleteAction.jsp?author=<%=author%>&group_id=<%=idx %>" onclick="del();">삭제</a>	
 						</div>
-						
-						
 						<%
 							stmt.close();
 							conn.close();
