@@ -306,8 +306,15 @@
 					</div>
                 </main>
              	<footer id="footer">
-		            <p class="footer__desc">Copyright © Team3 <img src="./img/logo.png" alt=""></p>
-        		</footer>	
+           <p class="footer__desc">Copyright © DB_Programing_Team3</p>
+           <div class="footer__spliter pc-only"></div>
+           <p class="git_link">
+           	<img src="../images/logo.png" width=50px alt="">
+            <a class="footer__desc" href="https://github.com/Zion-min/Rankinghub">
+            Go_github
+            </a>
+        </p>
+    </footer>	
     		</div>
     	</div>
     </body>
