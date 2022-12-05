@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <% 
 	String serverIP = "localhost";
-	String strSID = "xe";
+	String strSID = "orcl";
 	String portNum = "1521";
 	String user = "rankinghub";
 	String pass = "comp322";
@@ -114,7 +114,7 @@
 	                        		<option value="like"<%if(ft!=null && ft.compareTo("like")==0){%>selected="selected"<%}%>>좋아요순</option>
 	                        	</select>
                         	</form>
-                        	<button> 글쓰기 </button>
+                        	<a href='boardCreate.jsp'>글쓰기</a>
                         </div>
                         <div class="ranking__content tier-view">
                             <table class="m-table">
