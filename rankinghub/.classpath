@@ -15,5 +15,6 @@
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="lib" path="C:/oracle/ojdbc8.jar"/>
 	<classpathentry kind="lib" path="C:/Users/minye/Downloads/json-simple-1.1.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/minye/Downloads/cos.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

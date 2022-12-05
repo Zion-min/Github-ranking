@@ -14,7 +14,6 @@
 	String user = "gitrank";
 	String pass = "gitrank";
 	String url = "jdbc:oracle:thin:@"+serverIP+":"+portNum+":"+strSID;
-	//System.out.println(url);
 	Connection conn = null;
 	Class.forName("oracle.jdbc.driver.OracleDriver");
 	conn = DriverManager.getConnection(url,user,pass);
@@ -22,14 +21,9 @@
 	Statement stmt = conn.createStatement();
 	String sql = "";
 
-	String saveFolder = "C:\\oracle\\comp322\\loginTest\\src\\main\\webapp\\files"; // out폴더에 fileSave 폴더 생성
+	String saveFolder = "C:\\Users\\minye\\Desktop\\Rankinghub\\rankinghub\\src\\main\\webapp\\post\\files"; // out폴더에 fileSave 폴더 생성
 	String encType = "utf-8";
 	int maxSize = 5*1024*1024; // 최대 업로드 5mb
-	
-// 	String realFolder = "";
-// 	ServletContext context = request.getServletContext();
-// 	realFolder = context.getRealPath(saveFolder);
-// 	out.println("the realpath is: " + realFolder + "<br>");
     
     MultipartRequest multi = null;
     multi = new MultipartRequest(request, saveFolder, maxSize, encType, new DefaultFileRenamePolicy());
@@ -39,30 +33,21 @@
  	String category = multi.getParameter("category");	// category
  	String userID = (String)session.getAttribute("sid");	// 현재 user 아이디
  	String is_anonymous = multi.getParameter("is_anonymous"); //title
+ 	
+ 	content = content.replace("\r\n","<br>");
+ 	
  	String name = "", filename = "", original_name = "", type = "";
  	File file = null;
- 	out.println((String)multi.getParameter("uploadFile"));
- 	if ((String)multi.getParameter("uploadFile") != null) {
- 		Enumeration files = multi.getFileNames();
- 	 	
- 	 	while(files.hasMoreElements()) {
- 	        name = (String)files.nextElement();
- 	        filename = multi.getFilesystemName(name);
- 	        original_name = multi.getOriginalFileName(name);
- 	        type = multi.getContentType(name);
- 	        file = multi.getFile(name);
 
-// 	         out.println("파라미터 이름" + name + "<br>");
-// 	         out.println("실제 파일 이름" + original_name + "<br>");
-// 	         out.println("저장된 파일 이름" + filename + "<br>");
-// 	         out.println("파일 타입 이름" + type + "<br>");
+	Enumeration files = multi.getFileNames();
+ 	while(files.hasMoreElements()) {
+        name = (String)files.nextElement();
+        filename = multi.getFilesystemName(name);
+        original_name = multi.getOriginalFileName(name);
+        type = multi.getContentType(name);
+        file = multi.getFile(name);
+	}
 
-// 	 	    if(file!= null) {
-// 	 	        out.println("크기: " + file.length() + "<br>");
-// 	 	    }
- 	    }
- 	}
-    
 	Date nowTime = new Date();
 	SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 
@@ -102,14 +87,18 @@
 			e1.printStackTrace();
 		}
 		file_insert_sql = String.format("INSERT INTO files values(%d, %s, %s, %s, to_timestamp(%s, 'YYYY-MM-DD HH24:MI:SS'), %d, %d)", 
-				file_id + 1, "'"+original_name+"'", "'" + filename + "'", "'" + "files/" + filename + "'", "'"+sf.format(nowTime)+"'", Integer.parseInt(category), post_id + 1);
+				file_id + 1, "'"+original_name+"'", "'" + filename + "'", "'" + "./files/" + filename + "'", "'"+sf.format(nowTime)+"'", Integer.parseInt(category), post_id + 1);
 		// out.println(file_insert_sql);
 	}
-	
+	// out.println(file_insert_sql);
 	// out.println(post_insert_sql);
 	stmt.addBatch(post_insert_sql);
-	if (file != null)
+	// stmt.executeUpdate(post_insert_sql);
+	// conn.commit();
+	if (file != null) {
+		// stmt.executeUpdate(file_insert_sql);
 		stmt.addBatch(file_insert_sql);
+	}
 	stmt.executeBatch();
 	conn.commit();
 	
