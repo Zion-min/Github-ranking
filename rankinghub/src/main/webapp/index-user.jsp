@@ -73,7 +73,7 @@
                                          "<a class='navbar__item' href='./profile/showProfile.jsp?gitid=" + session.getAttribute("sid") + "'><span>" + session.getAttribute("sid") + "</span> 님의 프로필</a>" +
                                    		 "<a class='navbar__item' href='./group/showGroup.jsp?gitid=" + session.getAttribute("sid") + "'>그룹</a>"
                                          ); %>
-                                    <a class="log-in-btn" href="./logout.jsp">로그아웃</a>
+                                    <a class="log-in-btn" href="./join/logout.jsp">로그아웃</a>
                                 </li>
                                 <% }%>
                             </ul>

@@ -49,6 +49,7 @@
          
         }
         }catch(Exception e){
+        out.println(e);
         out.println("<h3>데이터 가져오기에 실패하였습니다.</h3>");
         e.printStackTrace();
     }finally{

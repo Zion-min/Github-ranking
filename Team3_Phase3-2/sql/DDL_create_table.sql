@@ -42,8 +42,7 @@ create table files(
     Reg_date timestamp(0) not null,
     Category_id number not null,
     Post_id number not null,
-    primary key(File_id),
-    unique(Origin_name)
+    primary key(File_id)
 )
 
 create table challenge_group(
@@ -51,6 +50,7 @@ create table challenge_group(
     Group_name varchar2(20) not null,
     Group_period number not null,
     Manage_github_id varchar2(39) not null,
+    Group_start_date timestamp(0) not null,
     check(Group_period = 30 or Group_period = 50 or Group_period = 100 or Group_period = 200 or Group_period = 365),
     primary key(Group_id)
 )
@@ -65,6 +65,7 @@ create table language(
 create table member
 (
     Github_id varchar2(39) not null,
+    User_password varchar2(20) not null,
     Avatar_url varchar2(200) not null,
     User_name varchar2(255),
     Company varchar2(255),
@@ -112,6 +113,7 @@ create table organization(
 create table participate_in(
     Mgithub_id varchar2(39) not null,
     Group_id number not null,
+    Created_at timestamp(0) not null,
     primary key (Mgithub_id, Group_id)
 )
 
