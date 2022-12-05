@@ -1,0 +1,303 @@
+@charset "EUC-KR";
+
+main {
+	padding-top: 75px;
+	margin: 0px;
+}
+
+#content {
+	background-color: #0D1117;
+	padding: 10% 20%;
+}
+
+.container {
+	top: 0;
+    left: 0;
+    right: 0;
+	background-color: #ffffff;
+	
+}
+
+.float-box {
+	padding-left: 5%;
+	padding-right: 5%;
+	padding-top: 15px;
+	padding-bottom: 15px;
+	float: left;
+}
+
+.base-profile {
+	padding-top: 50px;
+	width: 100%;
+}
+
+.controbutions {
+	width: 100%;
+}
+
+.level-container {
+	width: 100%;
+}
+
+.language-container {
+	width: 50%;
+	margin-bottom: 50px;
+}
+
+.rank-container {
+	width: 50%;
+	margin-bottom: 50px;
+}
+
+.repo-container {
+	width:100%;
+	padding-top: 20px;
+	padding-left: 5%;
+	padding-bottom: 50px;
+	margin-top: 25px;
+}
+
+/* 프로필 상단 부분 */
+
+.profile-img-container {
+	padding-left: 5%;
+	padding-right: 15px;
+}
+
+.profile-img-container img {
+    border-radius: 200px;
+}
+
+.profile-container {
+	padding-left: 1%;
+}
+
+.profile-container img {
+	width: 40px;
+	padding: 5px;
+	border-radius: 200px;
+	margin-right: 10px;
+}
+
+.github-url {
+	text-decoration: none;
+	font-size: 32px;
+	font-weight: bold;
+	line-height: 40px;
+	color: #238636;
+}
+
+.profile-id {
+	color: #238636;
+	cursor: pointer;
+}
+
+.profile-id:hover {
+	color: #144e20;
+}
+
+.profile-title {
+	display: flex;
+	align-items: center;
+}
+
+.local {
+	margin-left: 15px;
+	margin-bottom: 0px;
+	margin-right: 10px;
+	margin-top: 10px;
+	color: #CDCDCD;
+}
+
+.user-info-list {
+	display: flex;
+    list-style: none;
+    box-sizing: border-box;
+    margin: 0px;
+    font-size:12px;
+    margin-left: 30px;
+}
+
+.user-info-list li {
+    margin-right: 5px;
+    margin-top: 10px;
+    padding: 7px 12px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    color: #ffffff;
+}
+
+.fist li {
+	background-color: #238636;
+}
+
+.second li {
+	background-color: #262C33;
+}
+
+.user-info-list span {
+	font-weight: bold;
+}
+
+.icon-name {
+	display: block;
+	margin-right: 10px;
+}
+
+.space {
+	height:40px;
+}
+
+
+/* contribution 영역 */
+.controbutions img {
+	display: block;
+	width: 95%;
+	margin: auto;
+	margin-top: 10px;
+}
+
+/* level 영역 */
+.level-compo {
+	display: flex;
+	align-items: center;
+}
+
+.level-info {
+	text-align: center;
+}
+
+.level-info p {
+	margin-top: 10px;
+	font-size: 25px;
+	font-weight: bold;
+}
+
+.level-img {
+	width: 150px;
+	margin-left:30px;
+}
+
+.exp-info {
+	font-size: 20px;
+	text-align: center;
+	margin-left: 60px;
+}
+
+.exp-info p {
+	margin-top: 10px;
+	margin-left:650%;
+	width: 100%;
+}
+
+#gage {
+	width: 700%;
+	height: 40px;
+	
+	-webkit-appearance: none;
+   	appearance: none;
+	background-color: #238636;
+}
+
+
+/* language 영역*/
+.language-use-chart {
+	margin-top:20px;
+	margin-left: 10px;
+	overflow:auto;
+}
+
+.chart-data {
+	height:15px;
+	margin-bottom: 20px;
+	margin-top:5px;
+}
+
+h1 {
+	margin: 5px;
+	width: 100%;
+	font-size: 40px;
+	font-weight: bold;
+}
+
+/* rank 영역 */
+.rank-num {
+	display: flex;
+	align-items:center;
+	padding-top: 20px;
+	font-size: 32px;
+	font-weight: bold;
+}
+
+.rank-num img {
+	width: 50%;
+}
+
+.ranking-pnt {
+	margin-top: 30px;
+}
+
+.ranking-pnt span {
+	font-weight: bold;
+	font-size: 20px;
+}
+
+/* repository 영역 */
+hr {
+	 color:#CDCDCD;
+	 width:100%;
+}
+
+.repo-toggle {
+	font-size: 32px;
+	font-weight: bold;
+}
+
+.alert {
+	font-size: 18px;
+	font-weight: lighter;
+	color: #cdcdcd;
+}	
+
+.repo-item {
+	display: flex;
+	margin-top: 20px;
+	border-width: thin;
+	border-style: solid;
+	align-items: center;
+	padding: 20px 30px;
+	background-color:#F2F2F2;	
+	border-color: #CDCDCD;
+	border-radius: 20px;
+}
+
+.repo-item-title {
+	margin-right: 20%;
+	width: 30%;
+}
+
+.repo-item-title a{
+	color: black;
+	font-weight: bold;
+	font-size: 25px;
+}
+
+.repo-item-detail {
+	display: flex;
+	align-items: center;
+	padding:20px;
+}
+
+.repo-item-detail img {
+	display:block;
+	margin-left:auto;
+	margin-right:auto;
+	
+}
+
+.repo-info-item {
+	width:150px;
+	text-align: center;
+	padding-bottom: 5px;
+}

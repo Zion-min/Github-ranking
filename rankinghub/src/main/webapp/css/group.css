@@ -1,0 +1,103 @@
+
+#content {
+	height: 180%;
+}
+
+.user-group-list{
+	padding:10px;
+	margin-bottom: 20px;
+}
+
+main {
+	padding-top: 75px;
+	
+}
+
+.user-group-info {
+	background-color: #0D1117;
+	padding: 50px;
+	border-radius: 20px;
+	border-color: #3B4147;
+	border-style:solid;
+	border-width: 2px;
+	margin-bottom: 20px;
+	display:flex;
+	align-items: center;
+}
+
+.group-name{
+	padding-bottom:30px;
+}
+
+.group-name a{
+	color: #58A8FF;
+	font-size: 32px;
+	font-weight: bolder;
+}
+
+.group-name a:hover {
+	color: #ffffff;
+}
+
+.group-info-desc {
+	color: #CDCDCD;
+}
+
+.group-info-desc li {
+	margin-bottom: 10px;
+}
+
+.group-info-title {
+	margin-right: 20%;
+}
+
+.group-info-progress {
+	color: #CDCDCD;
+	width:45%;
+}
+
+.group-info-progress h2 {
+	font-size: 20px;
+	font-weight:bold;
+	margin-bottom: 10px;
+}
+
+.gage-bar {
+	background-color: #58A8FF;
+	height: 20px;
+	margin-top: 10px;
+}
+
+.alert-info {
+	color: #CDCDCD;
+	margin-bottom: 20px;
+	text-align: center;
+}
+
+.group-btn {
+	display: flex;
+	align-items: center;
+	margin-left:60%;
+	
+}
+
+.group-btn div {
+	padding: 10px;
+	margin: 10px;
+}
+
+.group-btn a {
+	color: #ffffff;
+	font-weight: bold;
+	
+}
+
+.participate-group {
+	background-color: #58A8FF;
+	border-radius:5px;
+}
+
+.create-group {
+	background-color: #238636;
+	border-radius:5px;
+}

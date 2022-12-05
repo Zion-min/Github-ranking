@@ -1,0 +1,192 @@
+
+#content{
+	color: white;
+}
+
+h2 {
+	font-size: 25px;
+	margin-bottom: 20px;
+}
+
+hr {
+	color: #238636;
+	height: 1px;
+	margin-bottom: 5px;
+	margin-top: 5px;
+}
+
+
+.group-desc-title {
+	margin-bottom: 30px;
+	margin-top: 20px;
+}
+
+.group-desc-title h1{
+	color: #58A8FF;
+	font-size: 40px;
+	font-weight: bold;
+	margin-bottom: 20px;
+}
+
+.group-desc-title div {
+	padding-left: 20px;
+	color: #CDCDCD;
+}
+
+.group-desc-progress {
+	padding: 20px;
+	margin: 30px 10px;
+}
+
+.gage-guideline {
+	width: 90%;
+	background-color: #CDCDCD;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 10px;
+	height: 25px;
+}
+
+.gage-bar{
+	height: 25px;
+	background-color: #58A8FF;
+}
+
+.group-desc-mng{
+	padding: 20px;
+	margin: 30px 10px;
+}
+
+.mng-profile a{
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.mng-profile img{
+	margin-top: 20px;
+}
+
+.mng-rank {
+	margin-left: 50px;
+	font-size: 20px;
+}
+
+.helper {
+	display: flex;
+	align-items: center;
+	text-align: center;
+	margin-left: 50px;
+}
+
+.group-desc-member img {
+	width: 180px;
+}
+
+.group-desc-mng img {
+	width: 200px;
+}
+
+
+.group-desc-member {
+	padding: 20px;
+	margin: 30px 10px;
+}
+
+.mem-info {
+	margin: 10px;
+}
+
+.mem-profile p {
+	font-size: 20px;
+	font-weight: bold;
+	margin-bottom: 5px;
+}
+
+.mem-rank {
+	margin-top: 5px;
+}
+
+.mem-profile p:hover {
+	color: #58A8FF;
+}
+
+.mng-profile p:hover {
+	color: #58A8FF;
+}
+
+.group-desc-attend {
+	padding: 20px;
+	margin: 30px 10px;
+}
+
+.group-desc-attend img {
+	width: 50px;
+	margin: 5px;
+}
+
+.attendance-chart {
+	font-size: 20px;
+	margin-left:50px;;
+	margin-top:30px;
+}
+
+.attendance-chart th {
+	font-weight: bold;
+	padding: 10px;
+}
+
+.attendance-chart td {
+	padding: 20px;
+	text-align: center;
+	border-bottom: 1px solid #CDCDCD;
+}
+
+.group-desc-stats {
+	padding: 20px;
+	margin: 30px 10px;
+}
+
+.total-stat {
+	padding: 10px;
+	margin-bottom: 30px;
+}
+
+.groupatttd {
+	margin-left: 30px;
+}
+
+.tomorrow-stat {
+	padding: 10px;
+}
+
+.attendance {
+	margin: 30px;
+}
+
+.attendance th{
+	border-bottom: 2px solid #CDCDCD;
+	font-size: 25px;
+	padding: 20px;
+}
+
+
+.attendance td {
+	padding: 20px;
+	font-size: 25px;	
+}
+
+.group-link {
+	display: block;
+	background-color: #58A8FF;
+}
+
+.participate-group {
+	background-color: #58A8FF;
+	border-radius:5px;
+	padding: 10px;
+	margin: 30px 10px;
+	width: 130px;
+	text-align:center;
+	font-weight: bold;
+	diplay:flex;
+}
