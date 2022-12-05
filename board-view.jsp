@@ -65,7 +65,7 @@
                                 </li>
                                 <% if(session.getAttribute("sid") == null) {%>
                                 <li>
-                                    <a class="navbar__item" href="./join/login.jsp">로그인</a>
+                                    <a class="navbar__item" href="login.jsp">로그인</a>
                                 </li>
                                 <%} else { out.println(session.getAttribute("sid"));%>
                                 <li>
@@ -99,7 +99,15 @@
                  				int views = rs.getInt(5);
                  				int likes = rs.getInt(6);
                  				String created_at = rs.getString(7);
-                 				views++;
+                 				
+                 				if((String)session.getAttribute(Integer.toString(idx)+"view")==null)
+    							{	
+    								views++;
+    								session.setAttribute(Integer.toString(idx)+"view", "1");
+    								sql = "update post set views ="+views +" where post_id ="+idx;
+    		                      	stmt.executeUpdate(sql);
+    							}
+                 				
 							%>
 	 						<thead>
 		                        <tr>
@@ -121,14 +129,7 @@
 								</tr>
 							</tbody>
 						</table>
-						<% 
-							if((String)session.getAttribute(Integer.toString(idx)+"view")==null)
-							{
-								session.setAttribute(Integer.toString(idx)+"view", "1");
-								sql = "update post set views ="+views +" where post_id ="+idx;
-		                      	stmt.executeUpdate(sql);
-							}
-						%>
+
 						<div class="post__content">글 내용 : <%=content%></div>
 						<div class="post__file">첨부파일 : <%
 							rs.close();
@@ -256,24 +257,7 @@
 						</div>
 						<a href="board-qna.jsp"><button>목록</button></a>
 						<div class="likes">
-							<input type="submit" id="like" value="좋아요">
-							<script>
-							    var t = document.getElementById('like');
-							    t.addEventListener('click', function(event){
-							        <%
-							        if((String)session.getAttribute(Integer.toString(idx)+"like")==null)
-									{
-										session.setAttribute(Integer.toString(idx)+"like", "1");
-										sql = "update post set likes = likes + 1 where post_id ="+idx;
-				                      	stmt.executeUpdate(sql);
-				                      	%>document.location.reload();<%
-									}
-							        else if((String)session.getAttribute(Integer.toString(idx)+"like")!=null)
-							        {
-							        	%>alert("이미 좋아요한 게시물입니다.");
-							        <%}%>
-							    });
-							</script>
+							<a href="favAction.jsp?group_id=<%=idx %>">좋아요</a>
 						</div>
 						<div class="post__delete">
 							<script language='javascript'>
