@@ -1,0 +1,72 @@
+.group-create-form {
+	background-color: #161B22;
+	color: #ffffff;
+	padding: 100px;
+}
+
+.group-create-form h1 {
+	font-size: 40px;
+	margin:40px 65px;
+	margin-bottom: 60px;
+	font-weight: bold;
+	color: #238636;
+}
+
+.create-item {
+	margin:40px 80px;
+}
+
+.group-label {
+	font-size: 30px;
+}
+
+#group_name {
+	margin-top: 20px;
+	width: 250px;
+	height: 35px;
+	border-radius: 10px;
+	margin-left: 10px;
+}
+
+#group_name:focus {
+	outline: 2px solid #58A8FF;
+}
+
+.period-opt {
+	margin:20px 10px;
+}
+
+.period-opt span {
+	padding: 0px 5px;
+}
+
+.btn-list {
+	margin-top: 40px;
+	margin-left: 70%;
+}
+
+.btn {
+	padding: 10px;
+	margin-right: 15px;
+	font-size: 16px;
+	border-radius: 10px;
+	color: #ffffff;
+}
+
+#create {
+	background-color: #238636;
+}
+
+#create:hover{
+	background-color: #144e20;
+	font-weight: bold;
+}
+
+#reset {
+	background-color: red;
+}
+
+#reset:hover {
+	background-color: #8e0000;
+	font-weight: bold;
+}
