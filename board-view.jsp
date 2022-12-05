@@ -99,7 +99,15 @@
                  				int views = rs.getInt(5);
                  				int likes = rs.getInt(6);
                  				String created_at = rs.getString(7);
-                 				views++;
+                 				
+                 				if((String)session.getAttribute(Integer.toString(idx)+"view")==null)
+    							{	
+    								views++;
+    								session.setAttribute(Integer.toString(idx)+"view", "1");
+    								sql = "update post set views ="+views +" where post_id ="+idx;
+    		                      	stmt.executeUpdate(sql);
+    							}
+                 				
 							%>
 	 						<thead>
 		                        <tr>
@@ -121,14 +129,7 @@
 								</tr>
 							</tbody>
 						</table>
-						<% 
-							if((String)session.getAttribute(Integer.toString(idx)+"view")==null)
-							{
-								session.setAttribute(Integer.toString(idx)+"view", "1");
-								sql = "update post set views ="+views +" where post_id ="+idx;
-		                      	stmt.executeUpdate(sql);
-							}
-						%>
+
 						<div class="post__content">글 내용 : <%=content%></div>
 						<div class="post__file">첨부파일 : <%
 							rs.close();
