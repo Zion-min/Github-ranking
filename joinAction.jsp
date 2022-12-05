@@ -21,7 +21,7 @@
 		public static Statement stmt = null;	// Statement object
 	    public static String sql = ""; // an SQL statement 
 	    public static ArrayList<Object[]> commits_url_list = new ArrayList<Object[]>();
-	    public static String github_token = "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";	// 깃헙 토큰 추가!!!
+	    public static String github_token = "";	// 깃헙 토큰 추가!!!
     %>
     
     <%!
