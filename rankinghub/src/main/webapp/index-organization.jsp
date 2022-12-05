@@ -129,7 +129,7 @@
 										while(rs.next()){
 											out.println("<tr>");
 											out.println("<td style=\"vertical-align: middle;\"> <div>"+rs.getString(1)+"</div> </td>");
-											out.println("<td style=\"vertical-align: middle;\"> <a href=\""+rs.getString(2)+"\" style=\"cursor: pointer;\">");
+											out.println("<td style=\"vertical-align: middle;\"> <a href=\""+rs.getString(2)+"\" target='_blank' style=\"cursor: pointer;\">");
 											out.println("<img width=\"30\" height=\"30\" class=\"a-avatar\"  src=\""+rs.getString(3)+"\"  title=\"\" style=\"border-radius: 7px; transform: translateY(calc(50% - 5px));\">");
 											out.println("<span style=\"margin-left: 5px; cursor: inherit;\"> "+rs.getString(4)+"</span> </a> </td>");
 											out.println("<td style=\"vertical-align: middle;\">"+rs.getString(5)+"</td>");	
