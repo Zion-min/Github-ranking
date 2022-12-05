@@ -1,0 +1,85 @@
+* {
+  box-sizing: border-box;
+  font-family: 'Noto Sans KR', sans-serif;
+}
+
+body {
+  margin: 0;
+  background-color: #0D1117;
+}
+
+a {
+	text-decoration: none;
+	color: #ffffff;
+}
+
+h2 {
+	color: #238636;
+	margin-top: 0px;
+}
+
+.alert-sign {
+	font-size: 13px;
+	color: #969696;
+	text-align: left;
+	margin-top: 0px;
+	margin-bottom: 20px;
+}
+
+.log-form {
+  background-color: #161B22;
+  width: 400px;
+  padding: 40px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 60px;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.log-title p{
+	font-size: 25px;
+	color: #ffffff;
+	margin-top:0px;
+	margin-bottom: 5px;
+	font-weight: bold;
+}
+
+.text-field {
+  font-size: 14px;
+  border: none;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+
+.text-field:focus {
+	outline: 3px solid #58A8FF;
+}
+
+.log-btn {
+  font-size: 14px;
+  border: none;
+  background-color: #238636;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  color: white;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.log-btn:hover {
+	background-color:  #ffffff;
+	color: #238636;
+	font-weight: bold;
+}
+
+.input-id {
+	margin-bottom: 40px;
+}
+
+.id-field {
+	margin-top: 40px;
+}
