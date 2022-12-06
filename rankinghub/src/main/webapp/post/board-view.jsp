@@ -1,15 +1,16 @@
 <%@page import="org.eclipse.jdt.internal.compiler.util.HashtableOfType"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page language="java" import="java.text.*,java.sql.*,java.util.Date" %>
+<%@ page language="java" import="java.text.*,java.sql.*,java.util.Date,rankinghub.*" %>
 <!DOCTYPE html>
 <% 
 	request.setCharacterEncoding("UTF-8");
-	String serverIP = "localhost";
-	String strSID = "orcl";
-	String portNum = "1521";
-	String user = "gitrank";
-	String pass = "gitrank";
+	config c = new config();
+	String serverIP = c.serverIP;
+	String strSID = c.strSID;
+	String portNum = c.portNum;
+	String user = c.user;
+	String pass = c.pass;
 	String url = "jdbc:oracle:thin:@"+serverIP+":"+portNum+":"+strSID;
 	//System.out.println(url);
 	Connection conn = null;
@@ -225,13 +226,13 @@
 										int category_id = rs.getInt(1);
 										rs.close();
 										
-										sql = "select max(comment_id) from comments";
+										sql = "select comment_seq.nextval from dual";
 										rs = stmt.executeQuery(sql);
 										rs.next();
 										int comment_id = rs.getInt(1);
 										rs.close();
 										
-										sql = "select content from comments where comment_id = "+comment_id;
+										sql = "select content from comments where comment_id = "+(comment_id-1);
 										rs = stmt.executeQuery(sql);
 										rs.next();
 										String prev_comm = rs.getString(1);
@@ -239,7 +240,7 @@
 										if(prev_comm.compareTo(comment_content)!=0)
 										{
 											sql = String.format("INSERT INTO comments values(%d, %d, %d, '%s', '%s', to_timestamp('%s', 'YYYY-MM-DD HH24:MI:SS'), to_timestamp('%s', 'YYYY-MM-DD HH24:MI:SS'), '%s')", 
-													category_id, post_id, comment_id+1, is_anonymous, comment_content, sf.format(nowTime), sf.format(nowTime), mgithub_id);
+													category_id, post_id, comment_id, is_anonymous, comment_content, sf.format(nowTime), sf.format(nowTime), mgithub_id);
 											stmt.executeUpdate(sql);
 										}
 									}

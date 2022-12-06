@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.sql.*" %>
+<%@ page import="java.sql.*,rankinghub.*" %>
 <%@ page import="javax.sql.*" %>
 <%@ page import="javax.naming.*" %>
 <%
@@ -11,13 +11,18 @@
     session.setAttribute("sid", ID); // ID를 계속 사용하기 위해 session에 넣어준다.
     //out.println(session.getAttribute("sid"));
     String sql="SELECT Github_id, User_password FROM member where Github_id='" + ID + "'"; //데이터를 뽑아오기 위한 sql문을 작성
-    String URL = "jdbc:oracle:thin:@localhost:1521:orcl";
-	String USER_RANKINGHUB = "gitrank";
-	String USER_PASSWD = "gitrank";
+  
+	config c = new config();
+	String serverIP = c.serverIP;
+	String strSID = c.strSID;
+	String portNum = c.portNum;
+	String user = c.user;
+	String passwd = c.pass;
+	String url = "jdbc:oracle:thin:@"+serverIP+":"+portNum+":"+strSID;
     
 	try {
         Context init = new InitialContext(); //naming context를 획득한다.
-        conn = DriverManager.getConnection(URL, USER_RANKINGHUB, USER_PASSWD);
+        conn = DriverManager.getConnection(url, user, passwd);
         PreparedStatement pstmt = conn.prepareStatement(sql); //PreparedStatement에서 sql문을 컴파일한다.
         pstmt.executeUpdate(); //업데이트한 건수를 반환한다.
         ResultSet rs = pstmt.executeQuery(); //실제 데이터를 반환한다.

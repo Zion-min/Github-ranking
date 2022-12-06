@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page language="java" import="java.text.*,java.sql.*"%>
+<%@ page language="java" import="java.text.*,java.sql.*,rankinghub.*"%>
 // 사용자 그룹 정보보기 + 그룹추가 및 참여하기
 <!DOCTYPE html>
 <html>
@@ -58,12 +58,14 @@
 	<main id='content'>
 		<div class="container">
 			<%
-			String serverIP = "localhost";
-			String strSID = "orcl";
-			String portNum = "1521";
-			String user = "gitrank";
-			String pass = "gitrank";
-			String url = "jdbc:oracle:thin:@" + serverIP + ":" + portNum + ":" + strSID;
+			config c = new config();
+			String serverIP = c.serverIP;
+			String strSID = c.strSID;
+			String portNum = c.portNum;
+			String user = c.user;
+			String pass = c.pass;
+			String url = "jdbc:oracle:thin:@"+serverIP+":"+portNum+":"+strSID;
+
 			//System.out.println(url);
 			Connection conn = null;
 			Statement stmt;

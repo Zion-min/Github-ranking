@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.sql.*" %>
+<%@ page import="java.sql.*,rankinghub.*" %>
 <%@ page import="javax.sql.*" %>
 <%@ page import="javax.naming.*" %>
 <%@ page import="java.util.Date" %>
@@ -19,11 +19,19 @@
 	
 	String groupid_sql = "select max(Group_id) from challenge_group";
 	String participated_sql="select count(*) from participate_in where Mgithub_id='" + userID +"'"; //데이터를 뽑아오기 위한 sql문을 작성
-	String URL = "jdbc:oracle:thin:@localhost:1521:orcl";
-	String USER_RANKINGHUB = "gitrank";
-	String USER_PASSWD = "gitrank";
 	
-	conn = DriverManager.getConnection(URL, USER_RANKINGHUB, USER_PASSWD);
+	config c = new config();
+	String serverIP = c.serverIP;
+	String strSID = c.strSID;
+	String portNum = c.portNum;
+	String user = c.user;
+	String pass = c.pass;
+	String url = "jdbc:oracle:thin:@"+serverIP+":"+portNum+":"+strSID;
+	//System.out.println(url);
+	
+	Class.forName("oracle.jdbc.driver.OracleDriver");
+	conn = DriverManager.getConnection(url,user,pass);
+	
 	conn.setAutoCommit(false); // auto-commit disabled
 	stmt = conn.createStatement(); // Create a statement object
 	

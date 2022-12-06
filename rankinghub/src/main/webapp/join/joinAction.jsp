@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 	<% request.setCharacterEncoding("utf-8"); %>
-    <%@ page import="java.sql.*" %>
+    <%@ page import="java.sql.*,rankinghub.*" %>
     <%@ page import="javax.sql.*" %>
     <%@ page import="javax.naming.*" %>
     
@@ -21,7 +21,7 @@
 		public static Statement stmt = null;	// Statement object
 	    public static String sql = ""; // an SQL statement 
 	    public static ArrayList<Object[]> commits_url_list = new ArrayList<Object[]>();
-	    public static String github_token = "";	// 깃헙 토큰 추가!!!
+	    public static String github_token = "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";	// 깃헙 토큰 추가!!!
     %>
     
     <%!
@@ -848,15 +848,19 @@
     %>
     
     <%
-	    String URL = "jdbc:oracle:thin:@localhost:1521:orcl";
-		String USER_RANKINGHUB = "rankinghub";
-		String USER_PASSWD = "comp322";
+	    config c = new config();
+		String serverIP = c.serverIP;
+		String strSID = c.strSID;
+		String portNum = c.portNum;
+		String user = c.user;
+		String passwd = c.pass;
+		String url = "jdbc:oracle:thin:@"+serverIP+":"+portNum+":"+strSID;
 		
 		String ID = (String)request.getParameter("ID");
 		String pass = (String)request.getParameter("pass");
 		out.println(ID);
 		// 연결
-		conn = DriverManager.getConnection(URL, USER_RANKINGHUB, USER_PASSWD);
+		conn = DriverManager.getConnection(url, user, passwd);
 		conn.setAutoCommit(false); // auto-commit disabled
 		stmt = conn.createStatement(); // Create a statement object
 		
@@ -864,7 +868,7 @@
 		user_info = get_user_info(ID);
 		if (user_info != null) {
 			// 깃헙 내 아이디가 존재하지 않은 경우
-			if (user_info.get("message") != null & user_info.get("message").equals("Not Found")) {
+			if (user_info.get("message") != null && user_info.get("message").equals("Not Found")) {
 				out.println("깃헙 내 존재하지 않은 아이디 입니다...\n");
 				response.sendRedirect("join.jsp");
 			}
@@ -907,7 +911,7 @@
 			
 			session.setAttribute("sid", github_id); // ID를 계속 사용하기 위해 session에 넣어준다.
 			
-			response.sendRedirect("index-user.jsp");
+			response.sendRedirect("../index-user.jsp");
 		}
 		else {
 			out.println(); 

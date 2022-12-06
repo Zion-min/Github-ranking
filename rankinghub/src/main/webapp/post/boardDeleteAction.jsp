@@ -1,13 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page language="java" import="java.text.*,java.sql.*,java.util.Date" %>
+<%@ page language="java" import="java.text.*,java.sql.*,java.util.Date,rankinghub.*" %>
 <% 
-	request.setCharacterEncoding("UTF-8");
-	String serverIP = "localhost";
-	String strSID = "orcl";
-	String portNum = "1521";
-	String user = "gitrank";
-	String pass = "gitrank";
+	config c = new config();
+	String serverIP = c.serverIP;
+	String strSID = c.strSID;
+	String portNum = c.portNum;
+	String user = c.user;
+	String pass = c.pass;
 	String url = "jdbc:oracle:thin:@"+serverIP+":"+portNum+":"+strSID;
 	//System.out.println(url);
 	Connection conn = null;
