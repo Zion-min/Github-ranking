@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page language="java" import="java.text.*,java.sql.*"%>    
+<%@ page language="java" import="java.text.*,java.sql.*,rankinghub.*"%>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -59,12 +59,13 @@
 		<%
 			request.setCharacterEncoding("UTF-8");
 		
-			String serverIP = "localhost";
-			String strSID = "orcl";
-			String portNum = "1521";
-			String user = "gitrank";
-			String pass = "gitrank";
-			String url = "jdbc:oracle:thin:@" + serverIP + ":" + portNum + ":" + strSID;
+			config c = new config();
+			String serverIP = c.serverIP;
+			String strSID = c.strSID;
+			String portNum = c.portNum;
+			String user = c.user;
+			String pass = c.pass;
+			String url = "jdbc:oracle:thin:@"+serverIP+":"+portNum+":"+strSID;
 			
 			String userID = (String)session.getAttribute("sid");	// 현재 user 아이디
 			

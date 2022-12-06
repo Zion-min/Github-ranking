@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Rankinghub: Group_Create</title>
 <link rel="stylesheet" type="text/css" href="../css/MainpageStyle.css">
 <link rel="stylesheet" type="text/css" href="../css/global.css">
 <link rel="stylesheet" type="text/css" href="../css/groupCreate.css">
